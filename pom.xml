@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.adda52</groupId>
+    <artifactId>lynx-automation-framework</artifactId>
+    <version>2.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+        <selenium.version>4.10.0</selenium.version>
+        <log4j.version>2.17.2</log4j.version>
+        <cucumber.version>7.2.3</cucumber.version>
+        <browser>ANDROID</browser>
+        <record-video>false</record-video>
+        <app-package>com.adda52.poker</app-package>
+        <app-launch-activity>com.adda52.poker.MainActivity</app-launch-activity>
+        <device-name>emulator-5554</device-name>
+        <appium-execution-type>lambdatest</appium-execution-type>
+        <appium-session-type>non-persistent</appium-session-type>
+        <lambdatest-app-name>lt://APP10160571441738299591102894</lambdatest-app-name>
+        <lambdatest-device-name>Galaxy S23 Ultra</lambdatest-device-name>
+        <build-name>M5.1.23|M0.2.1</build-name>
+        <dataproviderthreadcount>2</dataproviderthreadcount>
+        <analytics>false</analytics>
+        <analytics-api-url>https://lynx-qa360.adda52poker.com</analytics-api-url>
+        <!--analytics-api-url>http://localhost:3000</analytics-api-url-->
+        <!-- Parameters for reporting -->
+        <cycle>Regression</cycle>
+        <release-name>Release 84.0</release-name>
+        <release>27th Feb 2024</release>
+        <Iteration>1</Iteration>
+        <platform>Android</platform>
+        <execution_os>Windows 10</execution_os>
+        <ionic-android-client-name>poker2android</ionic-android-client-name>
+        <csv-file-path>src/test/resources/users.csv</csv-file-path>
+    </properties>
+
+    <profiles>
+        <!--Staging Server-->
+        <profile>
+            <id>Staging</id>
+            <properties>
+                <server-name>Staging</server-name>
+                <play-poker-url>https://www.adda52poker.com/playpoker/</play-poker-url>
+                <web-url>https://adda52poker.com/</web-url>
+                <poker2-url>https://adda52poker.com/poker2uat</poker2-url>
+                <sql-db-host>a52p-nonprod-2.cqsajvbskxno.ap-south-1.rds.amazonaws.com</sql-db-host>
+                <redis-host>10.20.6.192</redis-host>
+                <redis-port>6379</redis-port>
+                <sql-db-port>3306</sql-db-port>
+                <sql-db-user>staging_appuser</sql-db-user>
+                <sql-db-pass>fF6XsK-ndQuLp2at</sql-db-pass>
+                <sql-db-prefix>staging_</sql-db-prefix>
+                <kyc-db-host>a52p-nonprod-3.cqsajvbskxno.ap-south-1.rds.amazonaws.com</kyc-db-host>
+                <kyc-db-port>3306</kyc-db-port>
+                <kyc-db-user>dev_kyc</kyc-db-user>
+                <kyc-db-pass>NhhATeY3p2bUUWbE</kyc-db-pass>
+                <psql-db-host>a52p-psql14-nonprod.cqsajvbskxno.ap-south-1.rds.amazonaws.com</psql-db-host>
+                <psql-db-port>5432</psql-db-port>
+                <psql-db-user>staging_appuser</psql-db-user>
+                <psql-db-pass>6iFospes8lve44ufr</psql-db-pass>
+                <psql-db-user-dhl>staging_poker_home_lobby_rw</psql-db-user-dhl>
+                <psql-db-pass-dhl>V1Zb2x15dvPg</psql-db-pass-dhl>
+                <psql-db-prefix>staging_</psql-db-prefix>
+                <mongo-db-host>devdb0.a52p.private:27017,devdb1.a52p.private:27017,devdba.a52p.private:27017</mongo-db-host>
+                <mongo-db-user>staging_mongouser</mongo-db-user>
+                <mongo-db-pass>vskqewRcshyopkma</mongo-db-pass>
+                <mongo-db-admin>admin</mongo-db-admin>
+                <mongo-db-prefix>staging_</mongo-db-prefix>
+                <api-v1-url>https://api.adda52poker.com</api-v1-url>
+                <gateway-api-url>https://gatewayapi.adda52poker.com</gateway-api-url>
+                <bo-api-url>https://boapi.adda52poker.com</bo-api-url>
+                <admin-api-url>https://adminapi.adda52poker.com</admin-api-url>
+                <mobile-api-url>https://mobileapi.adda52poker.com</mobile-api-url>
+                <driver-wait-time>15</driver-wait-time>
+                <analytics_db_host>localhost</analytics_db_host>
+                <analytics_db_port>3306</analytics_db_port>
+                <analytics_db_user>root</analytics_db_user>
+                <analytics_db_prefix>-</analytics_db_prefix>
+                <slack-channels>C07JHM448MA,C07BVQ3Q3P1</slack-channels>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>Turn</id>
+            <properties>
+                <server-name>Turn</server-name>
+                <play-poker-url>https://turn.adda52poker.com/playpoker/</play-poker-url>
+                <web-url>https://turn.adda52poker.com/</web-url>
+                <sql-db-host>a52p-nonprod-3.cqsajvbskxno.ap-south-1.rds.amazonaws.com</sql-db-host>
+                <sql-db-port>3306</sql-db-port>
+                <sql-db-user>turn_appuser</sql-db-user>
+                <sql-db-pass>fF6XsK-ndQuLp2at</sql-db-pass>
+                <sql-db-prefix>turn_</sql-db-prefix>
+                <postgresql-db-host>a52p-psql14-nonprod.cqsajvbskxno.ap-south-1.rds.amazonaws.com</postgresql-db-host>
+                <postgresql-db-port>5432</postgresql-db-port>
+                <postgresql-db-user>turn_appuser</postgresql-db-user>
+                <postgresql-db-pass>6iFospes8lve44ufr</postgresql-db-pass>
+                <postgresql-db-prefix>turn_</postgresql-db-prefix>
+                <redis-host>10.20.18.72</redis-host>
+                <redis-port>6379</redis-port>
+                <kyc-db-host>a52p-nonprod-3.cqsajvbskxno.ap-south-1.rds.amazonaws.com</kyc-db-host>
+                <kyc-db-port>3306</kyc-db-port>
+                <kyc-db-user>dev_kyc</kyc-db-user>
+                <kyc-db-pass>NhhATeY3p2bUUWbE</kyc-db-pass>
+                <mongo-db-host>devdb0.a52p.private,devdb1.a52p.private</mongo-db-host>
+                <mongo-db-user>turn_mongouser</mongo-db-user>
+                <mongo-db-pass>vskqewRcshyopkma</mongo-db-pass>
+                <mongo-db-admin>admin</mongo-db-admin>
+                <mongo-db-prefix>turn_</mongo-db-prefix>
+                <api-v1-url>https://turnapi.adda52poker.com</api-v1-url>
+                <gateway-api-url>https://turngatewayapi.adda52poker.com</gateway-api-url>
+                <app-api-url>https://turnapplication.adda52poker.com</app-api-url>
+                <driver-wait-time>30</driver-wait-time>
+                <slack-channels>C06PY3YC7UY</slack-channels>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>River</id>
+            <properties>
+                <server-name>River</server-name>
+                <play-poker-url>https://river.adda52poker.com/playpoker/</play-poker-url>
+                <web-url>https://turn.adda52poker.com/</web-url>
+                <sql-db-host>a52p-nonprod-3.cqsajvbskxno.ap-south-1.rds.amazonaws.com</sql-db-host>
+                <sql-db-port>3306</sql-db-port>
+                <sql-db-user>river_appuser</sql-db-user>
+                <sql-db-pass>fF6XsK-ndQuLp2at</sql-db-pass>
+                <sql-db-prefix>river_</sql-db-prefix>
+                <psql-db-host>a52p-psql14-nonprod.cqsajvbskxno.ap-south-1.rds.amazonaws.com</psql-db-host>
+                <psql-db-port>5432</psql-db-port>
+                <psql-db-user>river_appuser</psql-db-user>
+                <psql-db-pass>6iFospes8lve44ufr</psql-db-pass>
+                <psql-db-prefix>river_</psql-db-prefix>
+                <redis-host>10.20.18.72</redis-host>
+                <redis-port>6379</redis-port>
+                <kyc-db-host>a52p-nonprod-3.cqsajvbskxno.ap-south-1.rds.amazonaws.com</kyc-db-host>
+                <kyc-db-port>3306</kyc-db-port>
+                <kyc-db-user>dev_kyc</kyc-db-user>
+                <kyc-db-pass>NhhATeY3p2bUUWbE</kyc-db-pass>
+                <mongo-db-host>devdb0.a52p.private,devdb1.a52p.private</mongo-db-host>
+                <mongo-db-user>river_mongouser</mongo-db-user>
+                <mongo-db-pass>vskqewRcshyopkma</mongo-db-pass>
+                <mongo-db-admin>admin</mongo-db-admin>
+                <mongo-db-prefix>river_</mongo-db-prefix>
+                <api-v1-url>https://riverapi.adda52poker.com</api-v1-url>
+                <gateway-api-url>https://rivergatewayapi.adda52poker.com</gateway-api-url>
+                <app-api-url>https://riverapplication.adda52poker.com</app-api-url>
+                <driver-wait-time>30</driver-wait-time>
+                <slack-channels>C07JHM448MA,C07QK0Z40CV,C07K2B3EV6U, C0745BA9D38, C066ZFU5QDC</slack-channels>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+
+    </profiles>
+
+    <!-- Build -->
+    <build>
+        <finalName>lynx-automation-framework</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M6</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/suites/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <!--argLine>@{argLine} -Xmx1024m</argLine-->
+                    <argLine>-Xmx1024m</argLine>
+                    <forkCount>1</forkCount>
+                    <reuseForks>true</reuseForks>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <compilerVersion>16</compilerVersion>
+                    <source>16</source>
+                    <target>16</target>
+                    <testSource>16</testSource>
+                    <testTarget>16</testTarget>
+                </configuration>
+            </plugin>
+
+            <!--
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin> -->
+
+
+            <!--plugin>
+                <groupId>com.github.cukedoctor</groupId>
+                <artifactId>cukedoctor-maven-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <outputFileName>living-documentation</outputFileName>
+                    <outputDir>docs</outputDir>
+                    <format>html</format>
+                    <toc>left</toc>
+                    <numbered>true</numbered>
+                    <hideSummarySection>true</hideSummarySection>
+                    <hideStepTime>true</hideStepTime>
+                    <hideTags>true</hideTags>
+                    <hideScenarioKeyword>true</hideScenarioKeyword>
+                    <docVersion>1.0.0</docVersion>
+                    <numbered>false</numbered>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin-->
+
+        </plugins>
+    </build>
+
+    <!--Dependencies-->
+    <dependencies>
+        <!--Selenium-->
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!--TestNG-->
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--JUnit-->
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--WebDriverManager-->
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.5.2</version>
+        </dependency>
+
+        <!--Log4j-->
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- MySql Connector -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
+        <!--Cucumber-->
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!--Cucumber JUnit-->
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Cucumber TestNG-->
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!--Reporting-->
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>1.3.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--SureFire-->
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M6</version>
+        </dependency>
+
+        <!--Lombok-->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jackson Databind -->
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.1</version>
+        </dependency>
+
+        <!-- JSON Simple -->
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.cukedoctor</groupId>
+            <artifactId>cukedoctor-converter</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+
+        <!-- Living documentation -->
+        <!-- https://mvnrepository.com/artifact/com.github.cukedoctor/cukedoctor-maven-plugin -->
+        <dependency>
+            <groupId>com.github.cukedoctor</groupId>
+            <artifactId>cukedoctor-maven-plugin</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+
+        <!--Apache POI-->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder -->
+        <dependency>
+            <groupId>com.github.stephenc.monte</groupId>
+            <artifactId>monte-screen-recorder</artifactId>
+            <version>0.7.7.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.10</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>8.5.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.2</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
+

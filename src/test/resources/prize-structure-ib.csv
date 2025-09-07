@@ -1,0 +1,6 @@
+label,Remarks,redirectUrl,prizeType,tktName,prizeValue,probability,expiry_in_hours
+Rs. 100 Instant Bonus,Instant Bonus 100,?actionType=account&moveToScreen=open_account,IB,,100,100,1
+Better Luck Next time,"Better luck Next Time,Please try Again Later! ",?actionType=tabclick&moveToScreen=ring__holdem,NONE,,0,0,2
+Rs. 100 Booster Bonus,Booster Bonus 100,?actionType=tabclick&moveToScreen=myticketsmtt,BB,,100,0,1
+Free Novice SNG Ticket,Free Novice SNG Ticket,?actionType=tabclick&moveToScreen=myticketsmtt,TICKET,SNG50,1,0,1
+Rs 100 Tourney Bonus,Tourney Bonus 100,?actionType=tabclick&moveToScreen=myticketsmtt,TB,,100,0,2
